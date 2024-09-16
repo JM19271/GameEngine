@@ -13,6 +13,11 @@ public class AIController : MonoBehaviour
     public float runSpeed = 5f;
     public float chaseDistance = 10f;
 
+    public Transform[] waypoints;
+    private int currentWaypointIndex = 0;
+    public float waypointTolerance = 1f;
+
+
     private void Start()
     {
         navAgent = GetComponent<NavMeshAgent>();
@@ -26,21 +31,30 @@ public class AIController : MonoBehaviour
         if (distanceToPlayer < chaseDistance)
         {
             navAgent.speed = runSpeed;
-            animator.SetBool("isRunning", true);
-            animator.SetBool("isWalking", false);
+            animator.SetBool("IsRunning", true);
+            animator.SetBool("IsWalking", false);
             navAgent.SetDestination(player.position);
+            Debug.Log("Running");
         }
         else
         {
             navAgent.speed = walkSpeed;
-            animator.SetBool("isRunning", false);
-            animator.SetBool("isWalking", true);
+            animator.SetBool("IsRunning", false);
+            animator.SetBool("IsWalking", true);
             Patrol();
+            Debug.Log("Walking/Patrolling");
         }
     }
     void Patrol()
     {
-        
+        if (waypoints.Length == 0) return;
+
+        navAgent.SetDestination(waypoints[currentWaypointIndex].position);
+
+        if (Vector3.Distance(transform.position, waypoints[currentWaypointIndex].position) < waypointTolerance)
+        {
+            currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
+        }
     }
 
 }
