@@ -7,7 +7,7 @@ public class AIController : MonoBehaviour
 {
     public Animator animator;
     public NavMeshAgent navAgent;
-    public Transform player;
+    public Transform Player;
 
     public float walkSpeed = 2f;
     public float runSpeed = 5f;
@@ -26,14 +26,14 @@ public class AIController : MonoBehaviour
 
     private void Update()
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        float distanceToPlayer = Vector3.Distance(transform.position, Player.position);
 
         if (distanceToPlayer < chaseDistance)
         {
             navAgent.speed = runSpeed;
             animator.SetBool("IsRunning", true);
             animator.SetBool("IsWalking", false);
-            navAgent.SetDestination(player.position);
+            navAgent.SetDestination(Player.position);
             Debug.Log("Running");
         }
         else
