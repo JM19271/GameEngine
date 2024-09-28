@@ -30,31 +30,41 @@ public class AIController : MonoBehaviour
 
         if (distanceToPlayer < chaseDistance)
         {
-            navAgent.speed = runSpeed;
-            animator.SetBool("IsRunning", true);
-            animator.SetBool("IsWalking", false);
-            navAgent.SetDestination(Player.position);
-            Debug.Log("Running");
+            ChasePlayer();
         }
         else
         {
-            navAgent.speed = walkSpeed;
-            animator.SetBool("IsRunning", false);
-            animator.SetBool("IsWalking", true);
             Patrol();
-            Debug.Log("Walking/Patrolling");
         }
     }
+
+    void ChasePlayer()
+    {
+        navAgent.speed = runSpeed;
+        navAgent.SetDestination(Player.position);
+
+        animator.SetBool("IsRunning", true);
+        animator.SetBool("IsWalking", false);
+
+        Debug.Log("Chasing Player.");
+    }
+
     void Patrol()
     {
         if (waypoints.Length == 0) return;
 
+        navAgent.speed = walkSpeed;
         navAgent.SetDestination(waypoints[currentWaypointIndex].position);
+
+        animator.SetBool("IsRunning", false);
+        animator.SetBool("IsWalking", true);
 
         if (Vector3.Distance(transform.position, waypoints[currentWaypointIndex].position) < waypointTolerance)
         {
-            currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
+            currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length; 
         }
+
+        Debug.Log("Patrolling.");
     }
 
 }
