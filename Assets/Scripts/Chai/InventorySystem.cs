@@ -72,4 +72,15 @@ public class InventorySystem : MonoBehaviour
         }
         return count;
     }
+
+    public bool RemoveItem(string itemName)
+    {
+        if (inventory.Contains(itemName))
+        {
+            inventory.Remove(itemName);  // 从背包列表中移除物品
+            UpdateInventoryUI();         // 更新UI显示
+            return true;  // 表示成功移除物品
+        }
+        return false;  // 表示背包中没有这个物品
+    }
 }
