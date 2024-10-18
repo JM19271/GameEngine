@@ -83,4 +83,16 @@ public class InventorySystem : MonoBehaviour
         }
         return false;  // 表示背包中没有这个物品
     }
+
+    public bool HasRequiredItems(List<string> requiredItems)
+    {
+        foreach (string item in requiredItems)
+        {
+            if (!inventory.Contains(item))
+            {
+                return false;  // 缺少某个必需的物品
+            }
+        }
+        return true;  // 所有物品都已收集
+    }
 }
