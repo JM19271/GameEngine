@@ -56,13 +56,20 @@ public class PointerMiniGame : MonoBehaviour
 
     public void ContinueMainGame()
     {
-        gameCompleted = true; // 防止重复调用
-        // 通过 carMiniGame 的实例来结束小游戏，返回主游戏
-        carMiniGame.ContinueMainGame(); // 调用 CarMiniGame 的 ContinueMainGame 方法
-        pointer.gameObject.SetActive(false); // 隐藏指针
-        pointerSlider.gameObject.SetActive(false); // 隐藏滑动指针的路径
-        greenZone.gameObject.SetActive(false); // 隐藏青色区域
-        Debug.Log("小游戏完成，修理进度继续。");
-        carMiniGame.StartMiniGame();
+        if (!gameCompleted)
+        {
+            gameCompleted = true; // 防止重复调用
+            // 调用 CarMiniGame 的 ContinueMainGame 方法
+            carMiniGame.ContinueMainGame();
+            Debug.Log($"调用 CarMiniGame 的 ContinueMainGame()，inSubGame={carMiniGame.inSubGame}, isPlaying={carMiniGame.isPlaying}");
+
+            pointer.gameObject.SetActive(false); // 隐藏指针
+            pointerSlider.gameObject.SetActive(false); // 隐藏滑动指针的路径
+            greenZone.gameObject.SetActive(false); // 隐藏青色区域
+        }
+        else
+        {
+            Debug.LogWarning("小游戏已经完成，不能重复继续！");
+        }
     }
 }

@@ -49,7 +49,6 @@ public class CarMiniGame : MonoBehaviour
         }
         else if (inSubGame)
         {
-            // 玩家离开了车的范围，处理指针小游戏的隐藏
             Debug.Log("玩家离开了车的范围，指针小游戏取消。");
             inSubGame = false;  // 退出指针滑动小游戏
             subGameUI.SetActive(false); // 隐藏指针小游戏的UI
@@ -64,14 +63,10 @@ public class CarMiniGame : MonoBehaviour
                 EndMiniGame(); // 结束小游戏
                 Debug.Log("玩家离开了车的范围，主修理小游戏被取消。");
             }
-            else if (inSubGame)
-            {
-                // 如果正在进行指针小游戏，也要隐藏
-                Debug.Log("玩家离开了车的范围，指针小游戏被取消。");
-
-                ContinueMainGame(); // 结束指针小游戏
-            }
         }
+
+        // 输出状态调试信息
+        Debug.Log($"当前状态: inSubGame={inSubGame}, isPlaying={isPlaying}, progress={progress}");
 
         // 如果游戏正在进行，并且修理进度达到25%，暂停修理并触发新的小游戏
         if (isPlaying && progress >= 0.25f && !inSubGame)
@@ -109,27 +104,36 @@ public class CarMiniGame : MonoBehaviour
     // 修理进度到达25%，暂停修理并启动指针滑动小游戏
     void PauseProgressAndStartSubGame()
     {
+        Debug.Log("修理进度达到25%，暂停主修理并开始指针小游戏。");
         isPlaying = false;  // 暂停修理进度
         inSubGame = true;   // 进入指针滑动小游戏
         subGameUI.SetActive(true);  // 显示指针滑动小游戏的UI
         pointerMiniGame.pointer.gameObject.SetActive(true); // 显示指针
-        Debug.Log("修理进度暂停，开始指针滑动小游戏。");
     }
 
     // 结束主修理小游戏
     void EndMiniGame()
     {
+        Debug.Log("主修理小游戏结束，隐藏UI。");
         isPlaying = false;
         miniGameUI.SetActive(false); // 隐藏主修理小游戏UI
-        Debug.Log("主修理小游戏完成或停止！");
     }
 
     // 完成指针滑动小游戏，继续主修理小游戏
     public void ContinueMainGame()
     {
-        inSubGame = false;   // 退出指针滑动小游戏
-        subGameUI.SetActive(false); // 隐藏指针滑动小游戏的UI
-        isPlaying = true;    // 恢复主修理小游戏
-        Debug.Log("指针小游戏完成，主修理进度继续。");
+        Debug.Log($"inSubGame={inSubGame}, isPlaying={isPlaying}. 准备继续主修理游戏。");
+
+        if (inSubGame)  // 检查是否确实在指针小游戏中
+        {
+            inSubGame = false;   // 退出指针滑动小游戏
+            subGameUI.SetActive(false); // 隐藏指针滑动小游戏的UI
+            isPlaying = true;    // 恢复主修理小游戏
+            Debug.Log($"inSubGame 设置为 false，isPlaying 设置为 true. inSubGame={inSubGame}, isPlaying={isPlaying}.");
+        }
+        else
+        {
+            Debug.LogError("指针小游戏未激活，无法恢复主修理进度！");
+        }
     }
 }
