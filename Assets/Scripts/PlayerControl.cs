@@ -17,6 +17,11 @@ public class PlayerControl : MonoBehaviour
     private float stepTimer;
     public float pitchSlowDownFactor = 0.5f;
 
+    public GameObject soundSpherePrefab;
+    public float soundSphereLifetime = 5f;
+    public float maxSoundRadius = 5f;
+    public float soundExpandSpeed = 10f;
+
 
     void Start()
     {
@@ -46,6 +51,7 @@ public class PlayerControl : MonoBehaviour
             if (stepTimer <= 0f)
             {
                 PlayFootstepSound();
+                InstantiateSoundSphere();
                 stepTimer = stepInterval; 
             }
         }
@@ -73,6 +79,59 @@ public class PlayerControl : MonoBehaviour
             footstepAudioSource.volume = Mathf.Clamp01(1 / pitchSlowDownFactor); 
 
             footstepAudioSource.Play();
+
+            if (soundSpherePrefab != null) 
+            {
+                GameObject soundSphere = Instantiate(soundSpherePrefab, transform.position, Quaternion.identity);
+                Debug.Log("Sound sphere instantiated at: " + transform.position);
+                Destroy(soundSphere, soundSphereLifetime); 
+            }
+            else
+            {
+                Debug.LogWarning("Sound sphere prefab is not assigned!");
+            }
         }
+    }
+
+
+    private void InstantiateSoundSphere()
+    {
+        if (soundSpherePrefab != null)
+        {
+            GameObject soundSphere = Instantiate(soundSpherePrefab, transform.position, Quaternion.identity);
+            soundSphere.transform.localScale = Vector3.zero; 
+            StartCoroutine(ExpandSoundSphere(soundSphere)); 
+        }
+        else
+        {
+            Debug.LogWarning("Sound sphere prefab is not assigned!");
+        }
+    }
+
+    private IEnumerator ExpandSoundSphere(GameObject soundSphere)
+    {
+        float elapsedTime = 0f;
+        Vector3 targetScale = Vector3.one * maxSoundRadius; 
+
+        while (elapsedTime < soundSphereLifetime)
+        {
+            if (soundSphere != null) 
+            {
+                soundSphere.transform.localScale = Vector3.Lerp(Vector3.zero, targetScale, (elapsedTime / soundSphereLifetime));
+                elapsedTime += Time.deltaTime * soundExpandSpeed; 
+            }
+            else
+            {
+                yield break; 
+            }
+            yield return null; 
+        }
+
+        if (soundSphere != null) 
+        {
+            soundSphere.transform.localScale = targetScale;
+        }
+
+        Destroy(soundSphere, soundSphereLifetime);
     }
 }
