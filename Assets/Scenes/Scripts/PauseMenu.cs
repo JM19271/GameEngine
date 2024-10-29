@@ -9,17 +9,31 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
     public GameObject optionsScreen;
+    private bool isPaused = false;
 
-    private void Start()
+    private void Update()
     {
-      
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isPaused)
+            {
+                Resume();
+            }
+            else
+            {
+                Pause();
+            }
+        }
     }
 
 
     public void Pause()
-    { 
+    {
+        Debug.Log("Pause method called. Time scale should be 0.");
         pauseMenu.SetActive(true);
         Time.timeScale = 0;
+        isPaused = true;
+        Debug.Log("Time.timeScale: " + Time.timeScale);
     }
 
     public void Home()
@@ -30,8 +44,11 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
-        pauseMenu.SetActive(false); 
+        Debug.Log("Resume method called. Time scale should be 1.");
+        pauseMenu.SetActive(false);
         Time.timeScale = 1;
+        isPaused = false;
+        Debug.Log("Time.timeScale: " + Time.timeScale);
     }
 
     public void Restart()
