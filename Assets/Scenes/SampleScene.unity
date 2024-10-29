@@ -803,7 +803,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: ad95ce4610549c34a83e7100216097a1, type: 3}
       propertyPath: m_LocalScale.x
-      value: 351.08133
+      value: 353.39847
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ad95ce4610549c34a83e7100216097a1, type: 3}
       propertyPath: m_LocalScale.y
@@ -1067,7 +1067,7 @@ RectTransform:
   m_GameObject: {fileID: 253640426}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.34164, y: 0.073896945, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 765667635}
@@ -3186,7 +3186,7 @@ MonoBehaviour:
   pointerSlider: {fileID: 1757032449}
   pointer: {fileID: 1067548931}
   greenZone: {fileID: 253640427}
-  carMiniGame: {fileID: 0}
+  carMiniGame: {fileID: 206226362}
   pointerSpeed: 5
   gameCompleted: 0
 --- !u!114 &765667632
@@ -3573,7 +3573,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -618.5494, y: 0}
+  m_AnchoredPosition: {x: -749, y: 0}
   m_SizeDelta: {x: -242.6421, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &860630119
@@ -4114,7 +4114,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.010986328, y: 329}
+  m_AnchoredPosition: {x: -0.000011818, y: 450}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1072646762
@@ -13261,7 +13261,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.5052632, y: 0.49468085, z: 0.49468085, w: 0.5052632}
   m_LocalPosition: {x: -0.0006, y: 0.0054, z: 0.0036}
-  m_LocalScale: {x: 0.0123897195, y: 0.0056966846, z: 0.0056966846}
+  m_LocalScale: {x: 0.016264388, y: 0.007089524, z: 0.007959661}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 206226358}
@@ -13705,8 +13705,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -13764,7 +13764,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 100, y: 254}
+  m_AnchoredPosition: {x: 1, y: 394}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1808966228
@@ -15007,8 +15007,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -686.5, y: 355}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 0, y: 503.69214}
+  m_SizeDelta: {x: 1920, y: 72.6157}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2103328320
 MonoBehaviour:

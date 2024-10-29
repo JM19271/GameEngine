@@ -65,7 +65,7 @@ public class CarMiniGame : MonoBehaviour
         Debug.Log($"当前状态: inSubGame={inSubGame}, isPlaying={isPlaying}, progress={progress}");
 
 
-        if (isPlaying && progress >= 0.5f && !inSubGame)
+        if (isPlaying && progress >= 0.25f && !inSubGame)
         {
             if (!pointerMiniGame.gameCompleted)
             {
