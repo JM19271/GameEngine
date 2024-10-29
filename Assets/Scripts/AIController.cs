@@ -67,4 +67,21 @@ public class AIController : MonoBehaviour
         Debug.Log("Patrolling.");
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            JumpScareManager jumpScareManager = FindObjectOfType<JumpScareManager>();
+            if (jumpScareManager != null)
+            {
+                jumpScareManager.TriggerJumpScare();
+            }
+        }
+    }
+
+    public void HeardPlayer()
+    {
+        Debug.Log("Monster heard the player's footsteps!");
+    }
+
 }
