@@ -5746,7 +5746,7 @@ MonoBehaviour:
   navAgent: {fileID: 1111894022}
   Player: {fileID: 562124337}
   walkSpeed: 4
-  runSpeed: 25
+  runSpeed: 20
   chaseDistance: 40
   waypoints:
   - {fileID: 551024786}
