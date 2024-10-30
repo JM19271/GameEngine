@@ -2566,8 +2566,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 50}
-  m_SizeDelta: {x: 600, y: 600}
+  m_AnchoredPosition: {x: -23.5566, y: 152}
+  m_SizeDelta: {x: 1573.6744, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &551538379
 MonoBehaviour:
@@ -2591,11 +2591,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 1a3856a1e6671474d86ba2a9f0ee9970, type: 3}
-    m_FontSize: 14
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 1
-    m_MaxSize: 40
+    m_MinSize: 0
+    m_MaxSize: 100
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -3187,7 +3187,7 @@ MonoBehaviour:
   pointer: {fileID: 1067548931}
   greenZone: {fileID: 253640427}
   carMiniGame: {fileID: 206226362}
-  pointerSpeed: 5
+  pointerSpeed: 2
   gameCompleted: 0
 --- !u!114 &765667632
 MonoBehaviour:
@@ -6362,7 +6362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41c6e4d66918d41408d9ae694b15f22c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: New Item
+  itemName: Part3
   inventorySystem: {fileID: 1504106175}
   pickUpText: {fileID: 1361653031}
 --- !u!54 &1228545587
@@ -7634,10 +7634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34b990cb4aa71ab48b4217bc4e5b1ef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory:
-  - Part1
-  - Part2
-  - Part3
+  inventory: []
   inventoryUI: {fileID: 860630117}
   inventoryText: {fileID: 1790768410}
 --- !u!4 &1504106176
