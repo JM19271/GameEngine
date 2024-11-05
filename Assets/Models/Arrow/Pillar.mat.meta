@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Models/Arrow/Pillar.mat.meta
 guid: bd4471b984e5f154ebb22637fe357025
+========
+guid: ead749ca823491243851f49c5dd62750
+>>>>>>>> Yong-Kang:Assets/Materials/TCom_Wood_LogWall_Aged_4K_ao.mat.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/BookHeadMonster/URP/Meshes/BookHeadMonster.fbx.meta
 guid: 939dd2b1b2633e840b9645b503fa3457
+========
+guid: 9775c4eefbe28b24f922c212782596d1
+>>>>>>>> Yong-Kang:Assets/BookHeadMonster/Built-in/Meshes/bank1.fbx.meta
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []

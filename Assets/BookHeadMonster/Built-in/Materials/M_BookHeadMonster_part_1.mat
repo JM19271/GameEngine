@@ -43,7 +43,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
+<<<<<<<< HEAD:Assets/BookHeadMonster/Built-in/Materials/M_BookHeadMonster_part_1.mat
         m_Texture: {fileID: 2800000, guid: 937ca717598a547408174eba0c0653c2, type: 3}
+========
+        m_Texture: {fileID: 2800000, guid: 2e8884f939834884f8c518342b17db39, type: 3}
+>>>>>>>> Yong-Kang:Assets/Materials/TCom_Wood_LogWall_Aged_4K_ao.mat
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:

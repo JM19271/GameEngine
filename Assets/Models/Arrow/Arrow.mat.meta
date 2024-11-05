@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Models/Arrow/Arrow.mat.meta
 guid: 9d75e86a13aeadf48bf59b51dd10499c
+========
+guid: eed2fcdb66cb7af41b981d09bf0ccf78
+>>>>>>>> Yong-Kang:Assets/Materials/TCom_Wood_LogWall_Aged_4K_albedo.mat.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000
