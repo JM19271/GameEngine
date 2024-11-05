@@ -6,6 +6,8 @@ public class MenuManager : MonoBehaviour
 {
     public PauseMenu pauseMenu;
     public OptionsScreen optionsScreen;
+    //public GameOver gameOver;
+    //public WinScene winScene;
 
     // Start is called before the first frame update
     void Start()
@@ -13,6 +15,8 @@ public class MenuManager : MonoBehaviour
         // Ensure both menus are hidden at the start
         pauseMenu.gameObject.SetActive(false);
         optionsScreen.gameObject.SetActive(false);
+        //gameOver.gameObject.SetActive(false);
+        //winScene.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
