@@ -9,15 +9,20 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
     public GameObject optionsScreen;
+    ///public GameObject GameOverScreen;
 
-    private void Start()
-    {
-       
-       
-            
-       
-    }
+    ///private void Awake()
+    ///{
+      /// GameOverScreen.SetActive(false);
+    ///}
 
+    ///private void Update()
+    
+        ///if (
+        ///{
+        /// GameOverScreen.SetActive(true);
+        ///}
+    
 
     public void Pause()
     { 
