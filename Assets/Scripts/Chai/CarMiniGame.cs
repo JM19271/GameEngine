@@ -17,7 +17,7 @@ public class CarMiniGame : MonoBehaviour
     public bool inSubGame = false;
     [SerializeField]
     private float progress = 0f;
-
+    public bool MaingameCompleted = false;
 
     void Start()
     {
@@ -65,7 +65,7 @@ public class CarMiniGame : MonoBehaviour
         Debug.Log($"当前状态: inSubGame={inSubGame}, isPlaying={isPlaying}, progress={progress}");
 
 
-        if (isPlaying && progress >= 0.25f && !inSubGame)
+        if (isPlaying && progress >= 0.5f && !inSubGame)
         {
             if (!pointerMiniGame.gameCompleted)
             {
@@ -112,6 +112,7 @@ public class CarMiniGame : MonoBehaviour
         Debug.Log("主修理小游戏结束，隐藏UI。");
         isPlaying = false;
         miniGameUI.SetActive(false);
+        MaingameCompleted = true;
     }
 
     public void ContinueMainGame()

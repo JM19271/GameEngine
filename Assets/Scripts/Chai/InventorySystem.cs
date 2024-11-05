@@ -3,20 +3,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-
 public class InventorySystem : MonoBehaviour
 {
-    // 存储玩家的物品
-    public List<string> inventory = new List<string>();  // 用于存储物品的列表
-    public GameObject inventoryUI;  // 引用UI，用来显示和隐藏背包
-    public TextMeshProUGUI inventoryText;   // Text组件，用于显示物品内容
+    // 存储玩家的物品，使用 Dictionary 存储物品 ID 和名称
+    private Dictionary<string, string> items = new Dictionary<string, string>();
+
+    // UI 相关引用
+    public GameObject inventoryUI;  // 引用 UI，用来显示和隐藏背包
+    public TextMeshProUGUI inventoryText;   // Text 组件，用于显示物品内容
 
     private bool isInventoryOpen = false;  // 用于追踪背包是否打开
 
-
     void Start()
     {
-        // 游戏开始时隐藏背包UI
+        // 游戏开始时隐藏背包 UI
         inventoryUI.SetActive(false);
     }
 
@@ -31,39 +31,57 @@ public class InventorySystem : MonoBehaviour
             Debug.Log("Inventory UI is now " + (isInventoryOpen ? "Open" : "Closed"));
         }
     }
+
     // 添加物品到背包
-    public void AddItem(string itemName)
+    public void AddItem(string itemID, string itemName)
     {
-        Debug.Log("Adding item to inventory: " + itemName);
-        inventory.Add(itemName);  // 将物品添加到inventory列表
-        UpdateInventoryUI();      // 更新UI显示
+        // 检查物品是否已在背包中
+        if (!items.ContainsKey(itemID))
+        {
+            items[itemID] = itemName;
+            Debug.Log(itemName + " (" + itemID + ") added to inventory.");
+            UpdateInventoryUI();  // 添加物品后更新 UI
+        }
     }
 
-    public bool HasItem(string itemName)
+    // 检查背包中是否有特定 ID 的物品
+    public bool HasItem(string itemID)
     {
-        return inventory.Contains(itemName);
+        return items.ContainsKey(itemID);
     }
 
-    // 更新Inventory UI
+    // 移除特定 ID 的物品
+    public bool RemoveItem(string itemID)
+    {
+        if (items.ContainsKey(itemID))
+        {
+            items.Remove(itemID);  // 从背包中移除物品
+            UpdateInventoryUI();    // 移除物品后更新 UI
+            return true;  // 表示成功移除物品
+        }
+        return false;  // 表示背包中没有这个物品
+    }
+
+    // 更新 Inventory UI
     private void UpdateInventoryUI()
     {
         // 清空现有的文本内容
         inventoryText.text = "";
 
-        // 遍历背包中的物品并添加到显示文本
-        foreach (string item in inventory)
+        // 遍历物品字典中的物品并添加到显示文本
+        foreach (var item in items.Values)
         {
             inventoryText.text += item + "\n";  // 每个物品独占一行
         }
 
-        Debug.Log("Inventory now contains: " + string.Join(", ", inventory));  // 确认物品内容
+        Debug.Log("Inventory now contains: " + string.Join(", ", items.Values));  // 确认物品内容
     }
 
-    // 获取物品数量
+    // 获取特定物品的数量
     public int GetItemCount(string itemName)
     {
         int count = 0;
-        foreach (string item in inventory)
+        foreach (string item in items.Values)
         {
             if (item == itemName)
             {
@@ -73,26 +91,16 @@ public class InventorySystem : MonoBehaviour
         return count;
     }
 
-    public bool RemoveItem(string itemName)
-    {
-        if (inventory.Contains(itemName))
-        {
-            inventory.Remove(itemName);  // 从背包列表中移除物品
-            UpdateInventoryUI();         // 更新UI显示
-            return true;  // 表示成功移除物品
-        }
-        return false;  // 表示背包中没有这个物品
-    }
-
+    // 检查是否有所有指定的物品
     public bool HasRequiredItems(List<string> requiredItems)
     {
         foreach (string item in requiredItems)
         {
-            if (!inventory.Contains(item))
+            if (!items.ContainsValue(item))
             {
                 return false;  // 缺少某个必需的物品
             }
         }
         return true;  // 所有物品都已收集
-    }
+    }
 }

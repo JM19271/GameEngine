@@ -1,57 +1,91 @@
 ﻿using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
 
-public class ObjectiveSystem : MonoBehaviour
+public class Objective : MonoBehaviour
 {
-    public TextMeshProUGUI objectiveText;  // 引用显示任务的UI
-    public InventorySystem inventory;      // 引用玩家的Inventory系统
-    private int collectedItems = 0;        // 已经收集的物品数量
-    private int requiredItems = 3;         // 所需物品数量
-    public string requiredItemName = "Material";  // 需要的物品名称
+    public TextMeshProUGUI objectiveText;   // 任务的UI文本
+    public InventorySystem inventory;       // Inventory系统的引用
+    public List<string> requiredItemIDs = new List<string> { "001", "002", "003", "Item2" };
+    public CarMiniGame carMiniGame;         // 引用 CarMiniGame，用于检查任务完成状态
 
-    private bool isObjectiveActive = false;  // 检查任务是否激活
+    private bool isObjective1Active = false;
+    private bool isObjective2Active = false;
 
     void Start()
     {
         objectiveText.gameObject.SetActive(false);  // 初始隐藏任务UI
     }
 
-    // 激活任务
-    public void ActivateObjective()
+    // 激活任务1
+    public void ActivateObjective1()
     {
-        isObjectiveActive = true;
+        isObjective1Active = true;
         objectiveText.gameObject.SetActive(true);
-        UpdateObjectiveUI();
+        UpdateObjective1UI();
     }
 
-    // 检测物品并更新任务进度
+    // 每帧检测物品和任务进度
     void Update()
     {
-        if (isObjectiveActive)
+        if (isObjective1Active)
         {
-            // 获取物品数量并更新任务进度
-            collectedItems = inventory.GetItemCount(requiredItemName);
-            UpdateObjectiveUI();
-
-            // 当物品收集完成时，隐藏任务
-            if (collectedItems >= requiredItems)
+            UpdateObjective1UI();
+            if (CheckObjective1Complete())
             {
-                CompleteObjective();
+                CompleteObjective1();
+            }
+        }
+        else if (isObjective2Active)
+        {
+            // 检查任务2是否完成
+            if (carMiniGame != null && carMiniGame.MaingameCompleted)
+            {
+                Debug.Log("Car MiniGame completed, marking Objective 2 as complete.");
+                CompleteObjective2();  // 如果小游戏完成，标记任务2完成
+            }
+            else
+            {
+                objectiveText.text = "Objective 2: Fix the Car";  // 任务2的默认描述
             }
         }
     }
 
-    // 更新任务UI显示
-    private void UpdateObjectiveUI()
+    // 更新任务1的UI显示
+    private void UpdateObjective1UI()
     {
-        objectiveText.text = "Objective 1: Collect 3 items (" + collectedItems + "/" + requiredItems + ")";
+        int collectedCount = 0;
+        foreach (string itemID in requiredItemIDs)
+        {
+            if (inventory.HasItem(itemID))
+                collectedCount++;
+        }
+        objectiveText.text = "Objective 1: Collect 4 items (" + collectedCount + "/4)";
     }
 
-    // 任务完成时调用
-    private void CompleteObjective()
+    // 检查任务1是否完成
+    private bool CheckObjective1Complete()
     {
-        objectiveText.text = "Objective Complete!";
-        // 在这里可以添加下一个任务或其他逻辑
-        // 例如，隐藏任务UI或激活下一个任务目标
+        foreach (string itemID in requiredItemIDs)
+        {
+            if (!inventory.HasItem(itemID))
+                return false;
+        }
+        return true;
     }
+
+    // 任务1完成时调用
+    private void CompleteObjective1()
+    {
+        objectiveText.text = "Objective 1 Complete!";
+        isObjective1Active = false;
+        isObjective2Active = true;  // 激活任务2
+    }
+
+    // 任务2完成时调用
+    private void CompleteObjective2()
+    {
+        objectiveText.text = "Objective 2 Complete!!";
+        isObjective2Active = false;  // 标记任务2完成
+    }
 }
