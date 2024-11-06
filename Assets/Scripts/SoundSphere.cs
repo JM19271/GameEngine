@@ -4,33 +4,42 @@ using UnityEngine;
 
 public class SoundSphere : MonoBehaviour
 {
-    public float expansionRate = 5f; 
-    public float maxRadius = 10f;
-    public float lifeDuration = 2f;
+    public float expansionRate = 80f; 
+    public float maxRadius = 40f;
+    public float lifeDuration = 5f;
+    private Transform playerTransform;
 
     private SphereCollider sphereCollider;
+    private Renderer sphereRenderer;
     private float lifeTimer;
+    private float elapsedLifeTime = 0f;
 
     private void Start()
     {
-        GetComponent<Renderer>().enabled = false;
         sphereCollider = GetComponent<SphereCollider>();
         sphereCollider.isTrigger = true;
-        transform.localScale = Vector3.zero;
-        lifeTimer = lifeDuration;
-    }
 
+        sphereRenderer = GetComponent<Renderer>();
+        sphereRenderer.enabled = true;
+        Color color = sphereRenderer.material.color;
+        color.a = 0.3f; 
+        sphereRenderer.material.color = color;
+
+        transform.localScale = Vector3.zero;
+    }
+    public void Initialize()
+    {
+    }
     private void Update()
     {
-        if (transform.localScale.x < maxRadius)
-        {
-            transform.localScale += Vector3.one * expansionRate * Time.deltaTime;
-        }
+        elapsedLifeTime += Time.deltaTime;
+        float currentScaleFactor = Mathf.Lerp(0, maxRadius, elapsedLifeTime / lifeDuration);
 
-        lifeTimer -= Time.deltaTime;
-        if (lifeTimer <= 0)
+        transform.localScale = Vector3.one * currentScaleFactor;
+
+        if (elapsedLifeTime >= lifeDuration)
         {
-            Destroy(gameObject); 
+            Destroy(gameObject);
         }
     }
 
@@ -42,20 +51,20 @@ public class SoundSphere : MonoBehaviour
             AIController monsterAI = other.GetComponent<AIController>();
             if (monsterAI != null)
             {
-                monsterAI.HeardPlayer();  
+                monsterAI.HeardPlayer();
             }
-            Destroy(gameObject); 
+            Destroy(gameObject);
         }
         else if (other.CompareTag("Obstacle"))
         {
             Debug.Log("Sound sphere hit an obstacle and was destroyed.");
-            Destroy(gameObject);  
+            Destroy(gameObject);
         }
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red; 
-        Gizmos.DrawSphere(transform.position, 0.5f); 
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, maxRadius); 
     }
 }
