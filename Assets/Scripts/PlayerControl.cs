@@ -11,11 +11,16 @@ public class PlayerControl : MonoBehaviour
     public Transform cameraTransform;
     private CharacterController controller;
 
-    public AudioSource footstepAudioSource; // Reference to the AudioSource component
-    public AudioClip[] Footsteps; // Array of footstep sound clips
-    public float stepInterval = 0.5f; // Interval between steps
+    public AudioSource footstepAudioSource; 
+    public AudioClip[] Footsteps; 
+    public float stepInterval = 0.5f; 
     private float stepTimer;
     public float pitchSlowDownFactor = 0.5f;
+
+    public GameObject soundSpherePrefab;
+    public float soundSphereLifetime = 5f;
+    public float maxSoundRadius = 5f;
+    public float soundExpandSpeed = 10f;
 
 
     void Start()
@@ -46,6 +51,7 @@ public class PlayerControl : MonoBehaviour
             if (stepTimer <= 0f)
             {
                 PlayFootstepSound();
+                InstantiateSoundSphere();
                 stepTimer = stepInterval; 
             }
         }
@@ -66,15 +72,40 @@ public class PlayerControl : MonoBehaviour
     {
         if (footstepAudioSource && Footsteps.Length > 0)
         {
-            // Play a random footstep sound
             int randomIndex = Random.Range(0, Footsteps.Length);
             footstepAudioSource.clip = Footsteps[randomIndex];
-            footstepAudioSource.pitch = pitchSlowDownFactor; // Set pitch to slow down playback
+            footstepAudioSource.pitch = pitchSlowDownFactor; 
 
-            // Compensate volume for pitch adjustment
-            footstepAudioSource.volume = Mathf.Clamp01(1 / pitchSlowDownFactor); // Increase volume proportionally to pitch
+            footstepAudioSource.volume = Mathf.Clamp01(1 / pitchSlowDownFactor); 
 
             footstepAudioSource.Play();
         }
+    }
+
+    private void InstantiateSoundSphere()
+    {
+        if (soundSpherePrefab)
+        {
+            GameObject soundSphere = Instantiate(soundSpherePrefab, transform.position, Quaternion.identity);
+            SoundSphere sphereScript = soundSphere.GetComponent<SoundSphere>();
+            sphereScript.Initialize();  
+        }
+    }
+
+    private IEnumerator ExpandSoundSphere(GameObject soundSphere)
+    {
+        float elapsedTime = 0f;
+        Vector3 targetScale = Vector3.one * maxSoundRadius; 
+
+        while (elapsedTime < soundSphereLifetime)
+        {
+            soundSphere.transform.localScale = Vector3.Lerp(Vector3.zero, targetScale, (elapsedTime / soundSphereLifetime));
+            elapsedTime += Time.deltaTime * soundExpandSpeed;
+            yield return null; 
+        }
+
+        soundSphere.transform.localScale = targetScale;
+
+        Destroy(soundSphere, soundSphereLifetime);
     }
 }
