@@ -1635,6 +1635,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EventSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 945502416362608250, guid: aa24e398d205eb5438f05b479f693ab1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5562427313565636611, guid: aa24e398d205eb5438f05b479f693ab1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1691,6 +1695,10 @@ PrefabInstance:
     - target: {fileID: 3778308772557734705, guid: 6641225dc96942d44b68eb3060c27e6d, type: 3}
       propertyPath: m_Name
       value: Audio Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3778308772557734705, guid: 6641225dc96942d44b68eb3060c27e6d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4861161024344976960, guid: 6641225dc96942d44b68eb3060c27e6d, type: 3}
       propertyPath: m_LocalPosition.x

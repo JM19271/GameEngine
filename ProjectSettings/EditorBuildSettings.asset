@@ -6,12 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/YONGKANG.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/Scenes/SampleScene.unity
+    guid: 3668f2d26ce40524f9b24b07ef4a4c24
   - enabled: 1
     path: Assets/Scenes/JumpScare.unity
     guid: 551fbea450e24a74f83032cbadd35749
   - enabled: 1
     path: Assets/Scenes/Main menu.unity
     guid: e380019dd97b53344906d182c98ab655
+  - enabled: 1
+    path: Assets/Scenes/WinScene.unity
+    guid: 05cfab0b69e99494b93bbbbffcc282ac
+  - enabled: 1
+    path: Assets/Scenes/Pause menu.unity
+    guid: 7848846a87496034aba80811157b890c
   m_configObjects: {}

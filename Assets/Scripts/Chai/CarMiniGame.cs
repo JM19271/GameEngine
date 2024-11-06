@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CarMiniGame : MonoBehaviour
@@ -11,124 +14,257 @@ public class CarMiniGame : MonoBehaviour
     public Slider progressBar;
     public GameObject subGameUI;
     public PointerMiniGame pointerMiniGame;
+    public TextMeshProUGUI winMessageText;
 
     public bool isPlaying = false;
     private bool canStartGame = false;
     public bool inSubGame = false;
+    private bool isCompleted = false;
+
     [SerializeField]
     private float progress = 0f;
-    public bool MaingameCompleted = false;
+    private const float SubGameProgressThreshold = 0.5f;
+    private const float ProgressRate = 0.2f;
+    public bool MainGameCompleted { get; private set; } = false;
 
     void Start()
+    {
+        InitializeUI();
+    }
+
+    void Update()
+    {
+        HandlePlayerProximity();
+
+        if (isPlaying && !inSubGame && !isCompleted)
+        {
+            HandleProgress();
+        }
+
+        Debug.Log($"Current Status: isSubGameActive={inSubGame}, isMainGameActive={isPlaying}, progress={progress}");
+    }
+
+    private void InitializeUI()
     {
         miniGameUI.SetActive(false);
         subGameUI.SetActive(false);
     }
 
-    void Update()
+    private void HandlePlayerProximity()
     {
         if (carTrigger.IsPlayerInRange())
         {
-            if (inventory.HasRequiredItems(requiredItems))
+            if (!isPlaying && !isCompleted)
             {
-                canStartGame = true;
-                Debug.Log("玩家已收集所有必需物品，可以开始小游戏。");
-
-                if (Input.GetKeyDown(KeyCode.F) && !isPlaying && !inSubGame)
-                {
-                    StartMiniGame();
-                }
+                CheckForMiniGameStart();
             }
-            else
+            else if (isPlaying && !inSubGame)
             {
-                canStartGame = false;
-                Debug.Log("物品未收集齐全，不能开始小游戏。");
+                HandleProgress();
             }
-        }
-        else if (inSubGame)
-        {
-            Debug.Log("玩家离开了车的范围，指针小游戏取消。");
-            inSubGame = false;
-            subGameUI.SetActive(false);
-            pointerMiniGame.pointer.gameObject.SetActive(false);
-            miniGameUI.SetActive(false);
         }
         else
         {
-            if (isPlaying)
+            if (isPlaying && !isCompleted)
             {
-                EndMiniGame();
-                Debug.Log("玩家离开了车的范围，主修理小游戏被取消。");
+                PauseMiniGame();
             }
-        }
 
-        Debug.Log($"当前状态: inSubGame={inSubGame}, isPlaying={isPlaying}, progress={progress}");
-
-
-        if (isPlaying && progress >= 0.5f && !inSubGame)
-        {
-            if (!pointerMiniGame.gameCompleted)
+            if (inSubGame)
             {
-                PauseProgressAndStartSubGame();
-            }
-        }
-
-        if (isPlaying && carTrigger.IsPlayerInRange() && !inSubGame)
-        {
-            if (Input.GetKey(KeyCode.F))
-            {
-                miniGameUI.SetActive(true);
-                progress += Time.deltaTime * 0.2f;
-                progressBar.value = progress;
-
-
-                if (progress >= 1f)
-                {
-                    EndMiniGame();
-                }
+                EndSubGame();
             }
         }
     }
 
-    public void StartMiniGame()
+    private void PauseMiniGame()
+    {
+        if (isPlaying)
+        {
+            Debug.Log("Player left the range, mini-game paused.");
+            isPlaying = false;
+            miniGameUI.SetActive(false);
+            ResetProgress();
+            EndSubGame();  
+        }
+    }
+
+    private void CheckForMiniGameStart()
+    {
+        if (inventory.HasRequiredItems(requiredItems))
+        {
+            canStartGame = true;
+            Debug.Log("Player has collected all required items. Ready to start mini-game.");
+
+            if (Input.GetKeyDown(KeyCode.F) && !isPlaying && !inSubGame)
+            {
+                StartMainGame();
+            }
+        }
+        else
+        {
+            canStartGame = false;
+            Debug.Log("Player has not collected all required items.");
+        }
+    }
+
+    private void StartMainGame()
     {
         isPlaying = true;
         miniGameUI.SetActive(true);
         progressBar.value = progress;
-        Debug.Log("主修理小游戏开始。");
+        Debug.Log("Main repair mini-game started.");
     }
 
-    void PauseProgressAndStartSubGame()
+    private void HandleProgress()
     {
-        Debug.Log("修理进度达到25%，暂停主修理并开始指针小游戏。");
+        if (Input.GetKey(KeyCode.F))
+        {
+            progress += Time.deltaTime * ProgressRate;
+            progressBar.value = progress;
+
+            if (progress >= SubGameProgressThreshold && !pointerMiniGame.gameCompleted)
+            {
+                PauseMainGameAndStartSubGame();
+            }
+
+            if (progress >= 1f)
+            {
+                CompleteGame();
+            }
+        }
+    }
+
+    private void PauseMainGameAndStartSubGame()
+    {
+        Debug.Log("Progress reached threshold, pausing main game and starting sub-game.");
         isPlaying = false;
         inSubGame = true;
         subGameUI.SetActive(true);
         pointerMiniGame.pointer.gameObject.SetActive(true);
     }
 
-    void EndMiniGame()
+    private void CompleteGame()
     {
-        Debug.Log("主修理小游戏结束，隐藏UI。");
+        if (isCompleted) return;
+
+        Debug.Log("Repair mini-game completed. Hiding UI.");
+        isPlaying = false;
+        isCompleted = true; 
+        miniGameUI.SetActive(false); 
+
+        MainGameCompleted = true;
+
+        DisplayWinningMessage();
+        StartCoroutine(LoadWinningSceneAfterDelay(2f));
+    }
+
+    private void EndMainGame(bool resetProgress = false)
+    {
+        if (!isCompleted) return;
+
+        Debug.Log("Main repair mini-game ended. Hiding UI.");
         isPlaying = false;
         miniGameUI.SetActive(false);
-        MaingameCompleted = true;
+
+        if (resetProgress)
+        {
+            ResetProgress();
+        }
+    }
+
+    private void ResetProgress()
+    {
+        progress = 0f;
+        progressBar.value = progress;
+        isCompleted = false;
+        MainGameCompleted = false;
+        winMessageText.gameObject.SetActive(false);
+    }
+
+    private void DisplayWinningMessage()
+    {
+        if (winMessageText != null)
+        {
+            winMessageText.gameObject.SetActive(true);
+            winMessageText.text = "The car has been fixed!";
+
+            StartCoroutine(FadeInWinMessage(1f));
+        }
+    }
+
+    private IEnumerator FadeInWinMessage(float duration)
+    {
+        Color textColor = winMessageText.color;
+        textColor.a = 0;
+        winMessageText.color = textColor;
+
+        float elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            textColor.a = Mathf.Clamp01(elapsedTime / duration); 
+            winMessageText.color = textColor;
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(5f); 
+        StartCoroutine(FadeOutWinMessage(1f)); 
+    }
+
+    private IEnumerator FadeOutWinMessage(float duration)
+    {
+        Color textColor = winMessageText.color;
+        float startAlpha = textColor.a;
+
+        float elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            textColor.a = Mathf.Clamp01(startAlpha - (elapsedTime / duration)); 
+            winMessageText.color = textColor;
+            yield return null;
+        }
+
+        winMessageText.gameObject.SetActive(false);
+    }
+
+    private IEnumerator LoadWinningSceneAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene("WinScene"); 
+    }
+
+    private IEnumerator HideWinningMessageAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        winMessageText.gameObject.SetActive(false); 
+    }
+
+    private void EndSubGame()
+    {
+        if (inSubGame)
+        {
+            Debug.Log("Player left the range of the car, sub-game canceled.");
+            inSubGame = false;
+            subGameUI.SetActive(false);
+            pointerMiniGame.pointer.gameObject.SetActive(false);
+            miniGameUI.SetActive(false);    
+        }
     }
 
     public void ContinueMainGame()
     {
-        Debug.Log($"inSubGame={inSubGame}, isPlaying={isPlaying}. 准备继续主修理游戏。");
-
         if (inSubGame)
         {
+            Debug.Log("Sub-game completed. Continuing main game.");
             inSubGame = false;
             subGameUI.SetActive(false);
             isPlaying = true;
-            Debug.Log($"inSubGame 设置为 false，isPlaying 设置为 true. inSubGame={inSubGame}, isPlaying={isPlaying}.");
         }
         else
         {
-            Debug.LogError("指针小游戏未激活，无法恢复主修理进度！");
+            Debug.LogError("Sub-game has not been activated. Cannot resume main game.");
         }
     }
 }

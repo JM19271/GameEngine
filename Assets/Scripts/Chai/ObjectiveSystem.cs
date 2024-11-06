@@ -39,7 +39,7 @@ public class Objective : MonoBehaviour
         else if (isObjective2Active)
         {
             // 检查任务2是否完成
-            if (carMiniGame != null && carMiniGame.MaingameCompleted)
+            if (carMiniGame != null && carMiniGame.MainGameCompleted)
             {
                 Debug.Log("Car MiniGame completed, marking Objective 2 as complete.");
                 CompleteObjective2();  // 如果小游戏完成，标记任务2完成
