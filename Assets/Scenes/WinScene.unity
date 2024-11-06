@@ -519,7 +519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.9607843}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.99607843}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -672,7 +672,7 @@ GameObject:
   - component: {fileID: 534805947}
   - component: {fileID: 534805946}
   m_Layer: 5
-  m_Name: Continue
+  m_Name: Home
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -696,7 +696,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 42, y: -81}
-  m_SizeDelta: {x: 267.2197, y: 80.0358}
+  m_SizeDelta: {x: 287.0345, y: 80.0358}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &534805946
 MonoBehaviour:
@@ -963,7 +963,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 42, y: -294}
-  m_SizeDelta: {x: 267.2197, y: 80.0358}
+  m_SizeDelta: {x: 287.0345, y: 80.0358}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1102049164
 MonoBehaviour:
@@ -1116,7 +1116,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Continue
+  m_text: Main Menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d2f3c717bda171947940002633c5e544, type: 2}
   m_sharedMaterial: {fileID: -9093346432656933494, guid: d2f3c717bda171947940002633c5e544, type: 2}
@@ -1489,7 +1489,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 42, y: -187}
-  m_SizeDelta: {x: 267.2197, y: 80.0358}
+  m_SizeDelta: {x: 287.0345, y: 80.0358}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2111897391
 MonoBehaviour:

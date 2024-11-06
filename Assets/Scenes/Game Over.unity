@@ -253,6 +253,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1590935281236479944, guid: 0dad4a45afbb5b64ca3278c171916c25, type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1773247193615699689, guid: 0dad4a45afbb5b64ca3278c171916c25, type: 3}
       propertyPath: m_Name
       value: GameOver
@@ -345,11 +349,55 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4410358013526806876, guid: 0dad4a45afbb5b64ca3278c171916c25, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410358013526806876, guid: 0dad4a45afbb5b64ca3278c171916c25, type: 3}
+      propertyPath: m_Color.b
+      value: 0.07633321
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410358013526806876, guid: 0dad4a45afbb5b64ca3278c171916c25, type: 3}
+      propertyPath: m_Color.g
+      value: 0.07633321
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410358013526806876, guid: 0dad4a45afbb5b64ca3278c171916c25, type: 3}
+      propertyPath: m_Color.r
+      value: 0.5698112
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410358013526806876, guid: 0dad4a45afbb5b64ca3278c171916c25, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4963159069605610454, guid: 0dad4a45afbb5b64ca3278c171916c25, type: 3}
       propertyPath: m_text
       value: 'Game Over
 
         You Dead'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4963159069605610454, guid: 0dad4a45afbb5b64ca3278c171916c25, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.15069413
+      objectReference: {fileID: 0}
+    - target: {fileID: 4963159069605610454, guid: 0dad4a45afbb5b64ca3278c171916c25, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.15069413
+      objectReference: {fileID: 0}
+    - target: {fileID: 4963159069605610454, guid: 0dad4a45afbb5b64ca3278c171916c25, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.9622642
+      objectReference: {fileID: 0}
+    - target: {fileID: 4963159069605610454, guid: 0dad4a45afbb5b64ca3278c171916c25, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4280690421
+      objectReference: {fileID: 0}
+    - target: {fileID: 5924725103533989019, guid: 0dad4a45afbb5b64ca3278c171916c25, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8235294
+      objectReference: {fileID: 0}
+    - target: {fileID: 6873400036954156545, guid: 0dad4a45afbb5b64ca3278c171916c25, type: 3}
+      propertyPath: m_Interactable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6873400036954156545, guid: 0dad4a45afbb5b64ca3278c171916c25, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -366,6 +414,10 @@ PrefabInstance:
     - target: {fileID: 6873400036954156545, guid: 0dad4a45afbb5b64ca3278c171916c25, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7379506573730231119, guid: 0dad4a45afbb5b64ca3278c171916c25, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8235294
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -763,7 +815,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4792453, g: 0.053349912, b: 0.053349912, a: 0.34509805}
+  m_Color: {r: 0.4792453, g: 0.053349912, b: 0.053349912, a: 0.8235294}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -896,7 +948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4792453, g: 0.053349912, b: 0.053349912, a: 0.34509805}
+  m_Color: {r: 0.4792453, g: 0.053349912, b: 0.053349912, a: 0.8235294}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1211,14 +1263,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.06415099, g: 0.06378787, b: 0.06378787, a: 0.99607843}
+  m_Color: {r: 0.5698112, g: 0.07633321, b: 0.07633321, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: f382791af50604f409eb43ff66c54572, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1317,8 +1369,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4280690421
+  m_fontColor: {r: 0.9622642, g: 0.15069413, b: 0.15069413, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
