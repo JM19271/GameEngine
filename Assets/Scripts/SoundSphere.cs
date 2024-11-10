@@ -4,67 +4,74 @@ using UnityEngine;
 
 public class SoundSphere : MonoBehaviour
 {
-    public float expansionRate = 80f; 
-    public float maxRadius = 40f;
-    public float lifeDuration = 5f;
-    private Transform playerTransform;
+    public float maxRadius = 20f;    
+    public float expansionRate = 5f; 
+    public float lifeDuration = 1f;  
+    private float currentRadius = 0f;
 
+    public Transform playerTransform;
     private SphereCollider sphereCollider;
-    private Renderer sphereRenderer;
-    private float lifeTimer;
     private float elapsedLifeTime = 0f;
+    private bool isMoving = true;
 
-    private void Start()
+    public void Initialize(Transform player, bool moving)
     {
+        playerTransform = player;
+        isMoving = moving;
+        Debug.Log("Initializing sound sphere with player: " + player.name);
         sphereCollider = GetComponent<SphereCollider>();
+
+        if (sphereCollider == null)
+        {
+            Debug.LogError("SphereCollider component missing on SoundSphere prefab.");
+            return;
+        }
+
         sphereCollider.isTrigger = true;
-
-        sphereRenderer = GetComponent<Renderer>();
-        sphereRenderer.enabled = true;
-        Color color = sphereRenderer.material.color;
-        color.a = 0.3f; 
-        sphereRenderer.material.color = color;
-
+        sphereCollider.radius = 0.1f; 
         transform.localScale = Vector3.zero;
     }
-    public void Initialize()
-    {
-    }
+
     private void Update()
     {
-        elapsedLifeTime += Time.deltaTime;
-        float currentScaleFactor = Mathf.Lerp(0, maxRadius, elapsedLifeTime / lifeDuration);
-
-        transform.localScale = Vector3.one * currentScaleFactor;
-
-        if (elapsedLifeTime >= lifeDuration)
+        if (isMoving)
         {
-            Destroy(gameObject);
+            if (currentRadius < maxRadius)
+            {
+                currentRadius += expansionRate * Time.deltaTime;
+            }
         }
-    }
+        else
+        {
+            if (currentRadius > 0f)
+            {
+                currentRadius -= expansionRate * Time.deltaTime;
+            }
 
-    private void OnTriggerEnter(Collider other)
+            if (currentRadius <= 0f)
+            {
+                currentRadius = 0f; 
+            }
+        }
+
+        transform.localScale = new Vector3(currentRadius, currentRadius, currentRadius);
+
+        if (currentRadius == maxRadius)
+        {
+            Debug.Log("Max radius reached.");
+        }
+    } 
+
+
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Monster"))
         {
-            Debug.Log("Sound sphere touched the monster!");
             AIController monsterAI = other.GetComponent<AIController>();
             if (monsterAI != null)
             {
-                monsterAI.HeardPlayer();
+                monsterAI.HeardPlayer(transform.position);
             }
-            Destroy(gameObject);
         }
-        else if (other.CompareTag("Obstacle"))
-        {
-            Debug.Log("Sound sphere hit an obstacle and was destroyed.");
-            Destroy(gameObject);
-        }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, maxRadius); 
     }
 }

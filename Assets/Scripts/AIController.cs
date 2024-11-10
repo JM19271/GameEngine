@@ -17,6 +17,8 @@ public class AIController : MonoBehaviour
     private int currentWaypointIndex = 0;
     public float waypointTolerance = 1f;
 
+    public float hearingRange = 20f;
+
 
     private void Start()
     {
@@ -67,6 +69,15 @@ public class AIController : MonoBehaviour
         Debug.Log("Patrolling.");
     }
 
+    public void HeardPlayer(Vector3 soundPosition)
+    {
+        if (Vector3.Distance(transform.position, soundPosition) <= hearingRange)
+        {
+            navAgent.SetDestination(soundPosition); // Move towards sound
+            Debug.Log("Monster moving towards sound!");
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -77,11 +88,6 @@ public class AIController : MonoBehaviour
                 jumpScareManager.TriggerJumpScare();
             }
         }
-    }
-
-    public void HeardPlayer()
-    {
-        Debug.Log("Monster heard the player's footsteps!");
     }
 
 }

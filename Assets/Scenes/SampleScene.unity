@@ -3938,9 +3938,7 @@ MonoBehaviour:
   stepInterval: 0.4
   pitchSlowDownFactor: 0.5
   soundSpherePrefab: {fileID: 1983467949}
-  soundSphereLifetime: 5
-  maxSoundRadius: 5
-  soundExpandSpeed: 10
+  soundSphereInterval: 0.5
 --- !u!1001 &563843042
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8086,6 +8084,7 @@ MonoBehaviour:
   - {fileID: 646656980}
   - {fileID: 712583138}
   waypointTolerance: 1
+  hearingRange: 20
 --- !u!65 &1111894026
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18068,12 +18067,32 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2308309887375086615, guid: ffc171c0e6800ee47bdf0fc19924ba73, type: 3}
+      propertyPath: maxRadius
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2308309887375086615, guid: ffc171c0e6800ee47bdf0fc19924ba73, type: 3}
       propertyPath: lifeDuration
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 2308309887375086615, guid: ffc171c0e6800ee47bdf0fc19924ba73, type: 3}
+      propertyPath: expansionRate
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2308309887375086615, guid: ffc171c0e6800ee47bdf0fc19924ba73, type: 3}
+      propertyPath: playerTransform
+      value: 
+      objectReference: {fileID: 562124337}
     - target: {fileID: 6622989275209873517, guid: ffc171c0e6800ee47bdf0fc19924ba73, type: 3}
       propertyPath: m_Name
       value: SoundSphere
+      objectReference: {fileID: 0}
+    - target: {fileID: 6622989275209873517, guid: ffc171c0e6800ee47bdf0fc19924ba73, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8835144461746194876, guid: ffc171c0e6800ee47bdf0fc19924ba73, type: 3}
+      propertyPath: m_Radius
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 9023013617936713669, guid: ffc171c0e6800ee47bdf0fc19924ba73, type: 3}
       propertyPath: m_LocalScale.x
@@ -18126,6 +18145,10 @@ PrefabInstance:
     - target: {fileID: 9023013617936713669, guid: ffc171c0e6800ee47bdf0fc19924ba73, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9023013617936713669, guid: ffc171c0e6800ee47bdf0fc19924ba73, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
