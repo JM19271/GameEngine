@@ -9,26 +9,16 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
     public GameObject optionsScreen;
-    ///public GameObject GameOverScreen;
 
-    ///private void Awake()
-    ///{
-      /// GameOverScreen.SetActive(false);
-    ///}
 
-    ///private void Update()
-    
-        ///if (
-        ///{
-        /// GameOverScreen.SetActive(true);
-        ///}
-    
 
     public void Pause()
-    { 
+    {
+        Debug.Log("Game Paused"); // This message will appear in the console when Pause() is called.
         pauseMenu.SetActive(true);
         Time.timeScale = 0;
     }
+
 
     public void Home()
     {
