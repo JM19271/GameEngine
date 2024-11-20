@@ -12,7 +12,7 @@ public class letter : MonoBehaviour
     //The toggle bool determines if the letter is being picked up or put down.
     bool toggle;
 
-    public FirstPersonMovement player;
+    public CharacterController player;
 
     //The Mesh Renderer component of your letter that disables after picking up the letter and enables when putting it back down.
     public Renderer letterMesh;

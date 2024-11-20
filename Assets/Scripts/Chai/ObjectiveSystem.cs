@@ -62,7 +62,7 @@ public class Objective : MonoBehaviour
         else if (isObjective3Active)
         {
             // 检查汽车小游戏是否完成
-            if (carMiniGame != null && carMiniGame.MaingameCompleted)
+            if (carMiniGame != null && carMiniGame.MainGameCompleted)
             {
                 Debug.Log("汽车已修复，标记任务3完成。");
                 CompleteObjective3();

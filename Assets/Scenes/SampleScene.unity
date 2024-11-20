@@ -921,7 +921,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 70378623}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4269387f10c03347a1114a40395207a, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d38b12e7634b2e41ad4d89da3a22b09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   interactionDistance: 5
@@ -7828,10 +7828,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a420bc1ebcd5aa8479d8e1b272b7ec0f, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6042946220836649033, guid: c355baa40aac9414fae71076ad8cb0c3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7924613372371383759, guid: c355baa40aac9414fae71076ad8cb0c3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2135888990}
   m_SourcePrefab: {fileID: 100100000, guid: c355baa40aac9414fae71076ad8cb0c3, type: 3}
 --- !u!64 &561813770
 MeshCollider:
@@ -25216,10 +25220,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectiveText: {fileID: 1756484828}
   inventory: {fileID: 2030700524}
-  requiredItemIDs:
-  - 001
-  - 002
-  - 003
+  carPartIDs:
+  - CarPart1
+  - CarPart2
+  letterInteraction: {fileID: 70378630}
   carMiniGame: {fileID: 206226362}
 --- !u!4 &1563283775
 Transform:
@@ -31132,6 +31136,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 206226358}
   m_LocalEulerAnglesHint: {x: 0.897, y: 90, z: 90}
+--- !u!1 &2135888988 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7924613372371383759, guid: c355baa40aac9414fae71076ad8cb0c3, type: 3}
+  m_PrefabInstance: {fileID: 551789694}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2135888990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2135888988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904b60b69aed13245aae997072e9c632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  letterUI: {fileID: 33868418}
+  player: {fileID: 562124333}
+  letterMesh: {fileID: 2135888992}
+--- !u!23 &2135888992 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8700123605697052398, guid: c355baa40aac9414fae71076ad8cb0c3, type: 3}
+  m_PrefabInstance: {fileID: 551789694}
+  m_PrefabAsset: {fileID: 0}
 --- !u!65 &2141445240
 BoxCollider:
   m_ObjectHideFlags: 0
