@@ -102,5 +102,5 @@ public class InventorySystem : MonoBehaviour
             }
         }
         return true;  // 所有物品都已收集
-    }
+    }
 }
