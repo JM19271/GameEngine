@@ -25,7 +25,7 @@ public class CarMiniGame : MonoBehaviour
     private float progress = 0f;
     private const float SubGameProgressThreshold = 0.5f;
     private const float ProgressRate = 0.2f;
-    public bool MainGameCompleted { get; private set; } = false;
+    public bool MaingameCompleted { get; private set; } = false;
 
     void Start()
     {
@@ -153,7 +153,7 @@ public class CarMiniGame : MonoBehaviour
         isCompleted = true; 
         miniGameUI.SetActive(false); 
 
-        MainGameCompleted = true;
+        MaingameCompleted = true;
 
         DisplayWinningMessage();
         StartCoroutine(LoadWinningSceneAfterDelay(2f));
@@ -178,7 +178,7 @@ public class CarMiniGame : MonoBehaviour
         progress = 0f;
         progressBar.value = progress;
         isCompleted = false;
-        MainGameCompleted = false;
+        MaingameCompleted = false;
         winMessageText.gameObject.SetActive(false);
     }
 
