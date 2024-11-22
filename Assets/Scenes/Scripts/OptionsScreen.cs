@@ -21,6 +21,12 @@ public class OptionsScreen : MonoBehaviour
     public TMP_Text mastLabel, musicLabel, sfxLabel;
     public Slider mastSlider, musicSlider, sfxSlider;
 
+    private void OnEnable()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
