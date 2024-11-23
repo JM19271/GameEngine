@@ -9,6 +9,12 @@ public class WinScene : MonoBehaviour
     [SerializeField] GameObject winScene;
     public GameObject creditScreen;
 
+    private void OnEnable()
+    {
+        Cursor.lockState = CursorLockMode.None; 
+        Cursor.visible = true;                
+    }
+
     public void Home()
     {
         SceneManager.LoadScene("Main menu");
