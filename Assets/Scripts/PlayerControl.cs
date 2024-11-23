@@ -98,23 +98,16 @@ public class PlayerControl : MonoBehaviour
 
     private void CreateSoundSphere()
     {
-        if (soundSpherePrefab != null && Time.time - lastSoundSphereTime >= soundSphereInterval)
+        if (soundSpherePrefab != null)
         {
-            lastSoundSphereTime = Time.time; // Track last time a SoundSphere was created
+            // Instantiate a new sound sphere at the player's position
+            GameObject newSoundSphere = Instantiate(soundSpherePrefab, transform.position, Quaternion.identity);
 
-            // Destroy previous sound sphere if it exists
-            if (activeSoundSphere != null)
-            {
-                Debug.Log("Destroying previous sound sphere"); // Debug log
-                Destroy(activeSoundSphere);
-            }
-
-            // Create a new sound sphere
-            activeSoundSphere = Instantiate(soundSpherePrefab, transform.position, Quaternion.identity);
-            SoundSphere sphereScript = activeSoundSphere.GetComponent<SoundSphere>();
+            SoundSphere sphereScript = newSoundSphere.GetComponent<SoundSphere>();
             if (sphereScript != null)
             {
-                sphereScript.Initialize(transform, isMoving);  // Pass the player's transform and moving state
+                // Pass the player's moving state (isMoving) to the sound sphere
+                sphereScript.Initialize(transform, isMoving);
             }
         }
     }

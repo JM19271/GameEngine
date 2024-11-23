@@ -25915,6 +25915,8 @@ MonoBehaviour:
   - 002
   letterInteraction: {fileID: 70378630}
   carMiniGame: {fileID: 206226362}
+  keyID: key
+  lastPartID: 003
 --- !u!4 &1563283775
 Transform:
   m_ObjectHideFlags: 0
@@ -33069,7 +33071,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6622989275209873517, guid: ffc171c0e6800ee47bdf0fc19924ba73, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8835144461746194876, guid: ffc171c0e6800ee47bdf0fc19924ba73, type: 3}
       propertyPath: m_Radius
