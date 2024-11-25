@@ -9,8 +9,17 @@ public class ItemPickup : MonoBehaviour
     public TextMeshProUGUI pickUpText;    // 拾取提示文本
     private bool isInRange = false;       // 检查玩家是否在捡物品的范围内
 
+    [SerializeField] private AudioClip pickupSound;
+    private static AudioSource globalAudioSource;
     void Start()
     {
+        if (globalAudioSource == null)
+        {
+            GameObject audioSourceObject = new GameObject("GlobalAudioSource");
+            globalAudioSource = audioSourceObject.AddComponent<AudioSource>();
+            DontDestroyOnLoad(audioSourceObject);
+        }
+
         if (pickUpText != null)
         {
             pickUpText.gameObject.SetActive(false);  // 初始隐藏拾取提示
@@ -35,6 +44,14 @@ public class ItemPickup : MonoBehaviour
         if (isInRange && Input.GetKeyDown(KeyCode.E))
         {
             if (inventorySystem != null)
+            {
+                if (pickupSound != null)
+                {
+                    globalAudioSource.PlayOneShot(pickupSound);
+                }
+            }
+
+                if (inventorySystem != null)
             {
                 inventorySystem.AddItem(itemID, itemName);  // 添加物品到背包
                 Destroy(gameObject);  // 拾取后销毁物品

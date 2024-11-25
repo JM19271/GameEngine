@@ -14,6 +14,8 @@ public class letter : MonoBehaviour
 
     public PlayerControl player;
 
+    public CameraControls camera;
+
     //The Mesh Renderer component of your letter that disables after picking up the letter and enables when putting it back down.
     public Renderer letterMesh;
 
@@ -29,6 +31,7 @@ public class letter : MonoBehaviour
             letterUI.SetActive(false);
             letterMesh.enabled = true;
             player.enabled = true;
+            camera.enabled = true;
         }
 
         //If toggle equals true, that means the player is picking up the letter.
@@ -37,6 +40,7 @@ public class letter : MonoBehaviour
             letterUI.SetActive(true);
             letterMesh.enabled = false;
             player.enabled = false;
+            camera.enabled = false;
         }
     }
 }
