@@ -10,7 +10,11 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] GameObject pauseMenu;
     public GameObject optionsScreen;
 
-
+    private void OnEnable()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
 
     public void Pause()
     {
@@ -28,13 +32,13 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
-        pauseMenu.SetActive(false); 
+        pauseMenu.SetActive(false);
         Time.timeScale = 1;
     }
 
     public void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene("SampleScene");
         Time.timeScale = 1;
     }
 

@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class FlashlightController : MonoBehaviour
 {
-    public Light flashlight; //This assigns the flashlight a light component
-    public KeyCode toggleKey = KeyCode.F; // This allows the player to toggle the flashlight with the key F
+    public Light flashlight; 
+    public KeyCode toggleKey = KeyCode.F; 
+    public AudioClip turnOnSound;
+    public AudioClip turnOffSound;
+    private AudioSource audioSource;
 
     private bool isOn = false;
+    public float fadeDuration = 0.5f;
 
     void Start()
     {
@@ -15,7 +19,13 @@ public class FlashlightController : MonoBehaviour
         {
             flashlight = GetComponentInChildren<Light>();
         }
-        flashlight.enabled = isOn; //Ensure the flashlight is off when the game starts
+        flashlight.enabled = isOn; 
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     private void Update()
@@ -24,6 +34,34 @@ public class FlashlightController : MonoBehaviour
         {
             isOn = !isOn;
             flashlight.enabled = isOn;
+
+            if (isOn)
+            {
+                audioSource.PlayOneShot(turnOnSound);
+            }
+            else
+            {
+                audioSource.PlayOneShot(turnOffSound);
+            }
         }
+    }
+
+    private IEnumerator FadeLight(bool turnOn)
+    {
+        float targetIntensity = turnOn ? 1f : 0f; 
+        float startIntensity = flashlight.intensity;
+        float elapsedTime = 0f;
+
+        flashlight.enabled = true;
+
+        while (elapsedTime < fadeDuration)
+        {
+            flashlight.intensity = Mathf.Lerp(startIntensity, targetIntensity, elapsedTime / fadeDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        flashlight.intensity = targetIntensity;
+        flashlight.enabled = turnOn; 
     }
 }

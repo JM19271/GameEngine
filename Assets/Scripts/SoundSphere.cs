@@ -4,21 +4,18 @@ using UnityEngine;
 
 public class SoundSphere : MonoBehaviour
 {
-    public float maxRadius = 20f;    
-    public float expansionRate = 5f; 
-    public float lifeDuration = 1f;  
+    public float maxRadius = 20f;
+    public float expansionRate = 5f;
+    public float lifeDuration = 1f;
     private float currentRadius = 0f;
 
-    public Transform playerTransform;
     private SphereCollider sphereCollider;
     private float elapsedLifeTime = 0f;
-    private bool isMoving = true;
+    private bool isMoving = true; // Local variable to store the passed state
 
     public void Initialize(Transform player, bool moving)
     {
-        playerTransform = player;
-        isMoving = moving;
-        Debug.Log("Initializing sound sphere with player: " + player.name);
+        isMoving = moving; // Store the passed value
         sphereCollider = GetComponent<SphereCollider>();
 
         if (sphereCollider == null)
@@ -28,12 +25,13 @@ public class SoundSphere : MonoBehaviour
         }
 
         sphereCollider.isTrigger = true;
-        sphereCollider.radius = 0.1f; 
+        sphereCollider.radius = 0.1f;
         transform.localScale = Vector3.zero;
     }
 
     private void Update()
     {
+        // Expand or shrink the sphere based on the isMoving state
         if (isMoving)
         {
             if (currentRadius < maxRadius)
@@ -50,18 +48,20 @@ public class SoundSphere : MonoBehaviour
 
             if (currentRadius <= 0f)
             {
-                currentRadius = 0f; 
+                currentRadius = 0f;
             }
         }
 
+        // Apply scale changes
         transform.localScale = new Vector3(currentRadius, currentRadius, currentRadius);
 
-        if (currentRadius == maxRadius)
+        // Track lifetime and destroy the sphere when its life ends
+        elapsedLifeTime += Time.deltaTime;
+        if (elapsedLifeTime >= lifeDuration)
         {
-            Debug.Log("Max radius reached.");
+            Destroy(gameObject);
         }
-    } 
-
+    }
 
     private void OnTriggerStay(Collider other)
     {
@@ -73,5 +73,11 @@ public class SoundSphere : MonoBehaviour
                 monsterAI.HeardPlayer(transform.position);
             }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(1, 0, 0, 0.3f); // Semi-transparent red
+        Gizmos.DrawSphere(transform.position, currentRadius);
     }
 }

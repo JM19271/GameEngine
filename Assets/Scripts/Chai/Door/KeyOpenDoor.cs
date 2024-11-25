@@ -28,6 +28,11 @@ public class KeyOpenDoor : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI noKeyTMP; // 显示“没有对应的钥匙，无法开门”的提示
 
+    [SerializeField]
+    private AudioClip doorOpenSound;
+    [SerializeField]
+    private AudioSource audioSource;
+
     private void Start()
     {
         // 存储门铰链的原始旋转角度
@@ -39,6 +44,18 @@ public class KeyOpenDoor : MonoBehaviour
         // 确保 TMP 提示最初是隐藏的
         interactPromptTMP.gameObject.SetActive(false);
         noKeyTMP.gameObject.SetActive(false);
+
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+            Debug.Log("AudioSource was missing; added automatically.");
+        }
+
+        if (doorOpenSound == null)
+        {
+            doorOpenSound = Resources.Load<AudioClip>("Opendoor");
+            Debug.Log("Assigned default door open sound.");
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -67,7 +84,7 @@ public class KeyOpenDoor : MonoBehaviour
         if (other.CompareTag("Player") && !isDoorOpen)
         {
             // 检测玩家按下“F”键
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 // 检查玩家的 Inventory 中是否有所需的物品 ID
                 if (playerInventory != null && playerInventory.HasItem(requiredItemID))
@@ -87,6 +104,16 @@ public class KeyOpenDoor : MonoBehaviour
     // 协程：平滑地打开门
     private IEnumerator OpenDoor()
     {
+        // Play sound as soon as the player presses 'E'
+        if (doorOpenSound != null)
+        {
+            audioSource.PlayOneShot(doorOpenSound);
+        }
+        else
+        {
+            Debug.LogWarning("No door open sound assigned. Please assign an audio clip.");
+        }
+
         isDoorOpen = true;
         interactPromptTMP.gameObject.SetActive(false); // 隐藏交互提示
         Quaternion startRotation = DoorHinge.rotation;
