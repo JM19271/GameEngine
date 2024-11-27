@@ -12,7 +12,8 @@ public class JumpScareManager : MonoBehaviour
     public GameObject EYE;
     public GameObject MonsterLight;
     public GameObject Playercamera;
-    public AudioSource audioSource;
+    public AudioSource jumpScareAudioSource;
+    public AudioSource growlAudioSource;
     public GameObject MonsterCamera;
     public NavMeshAgent navAgent;
 
@@ -37,9 +38,14 @@ public class JumpScareManager : MonoBehaviour
             Debug.LogError("JumpScareManager: monsterLight is not assigned!");
         }
 
-        if (audioSource == null)
+        if (jumpScareAudioSource == null)
         {
             Debug.LogError("JumpScareManager: monsterAudio is not assigned!");
+        }
+
+        if (growlAudioSource == null)
+        {
+            Debug.LogError("JumpScareManager: growlAudioSource is not assigned!");
         }
 
         if (navAgent == null)
@@ -50,14 +56,20 @@ public class JumpScareManager : MonoBehaviour
         MonsterLight.SetActive(false);
         EYE.SetActive(false);
         MonsterCamera.SetActive(false);
-        if (audioSource != null)
+
+        if (jumpScareAudioSource != null)
         {
-            audioSource.enabled = false;  
+            jumpScareAudioSource.enabled = false;  
         }
     }
     
     public void TriggerJumpScare()
     {
+        if (growlAudioSource != null)
+        {
+            growlAudioSource.Stop(); 
+        }
+
         StartCoroutine(PlayJumpScareAndGoToGameOver());
     }
 
@@ -111,9 +123,9 @@ public class JumpScareManager : MonoBehaviour
             jumpScareAnimator.SetTrigger("PlayJumpScare");
         }
 
-        if (audioSource != null)
+        if (jumpScareAudioSource != null)
         {
-            audioSource.enabled = true;
+            jumpScareAudioSource.enabled = true;
         }
 
         yield return new WaitForSeconds(jumpScareDuration);
