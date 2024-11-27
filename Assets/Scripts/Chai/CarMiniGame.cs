@@ -15,6 +15,7 @@ public class CarMiniGame : MonoBehaviour
     public GameObject subGameUI;
     public PointerMiniGame pointerMiniGame;
     public TextMeshProUGUI winMessageText;
+    public TextMeshProUGUI CarMessageText;
 
     public bool isPlaying = false;
     private bool canStartGame = false;
@@ -91,21 +92,71 @@ public class CarMiniGame : MonoBehaviour
 
     private void CheckForMiniGameStart()
     {
-        if (inventory.HasRequiredItems(requiredItems))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            canStartGame = true;
-            Debug.Log("Player has collected all required items. Ready to start mini-game.");
-
-            if (Input.GetKeyDown(KeyCode.F) && !isPlaying && !inSubGame)
+            if (inventory.HasRequiredItems(requiredItems))
             {
-                StartMainGame();
+                canStartGame = true;
+                Debug.Log("Player has collected all required items. Ready to start mini-game.");
+
+                if (!isPlaying && !inSubGame)
+                {
+                    StartMainGame();
+                }
+            }
+
+            else
+            {
+                canStartGame = false;
+                DisplayCarMessage();
+                Debug.Log("Player has not collected all required items.");
             }
         }
-        else
+    }
+    private void DisplayCarMessage()
+    {
+        if (CarMessageText != null)
         {
-            canStartGame = false;
-            Debug.Log("Player has not collected all required items.");
+            CarMessageText.gameObject.SetActive(true);
+            CarMessageText.text = "You didn't collect all of the parts!";
+
+            StartCoroutine(FadeInCarMessage(1f));
         }
+    }
+    private IEnumerator FadeInCarMessage(float duration)
+    {
+        Color textColor = CarMessageText.color;
+        textColor.a = 0;
+        CarMessageText.color = textColor;
+
+        float elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            textColor.a = Mathf.Clamp01(elapsedTime / duration);
+            CarMessageText.color = textColor;
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(0.6f);
+        StartCoroutine(FadeOutCarMessage(1f));
+    }
+
+    private IEnumerator FadeOutCarMessage(float duration)
+    {
+        Color textColor = CarMessageText.color;
+        float startAlpha = textColor.a;
+
+        float elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            textColor.a = Mathf.Clamp01(startAlpha - (elapsedTime / duration));
+            CarMessageText.color = textColor;
+            yield return null;
+        }
+
+        CarMessageText.gameObject.SetActive(false);
     }
 
     private void StartMainGame()
@@ -118,7 +169,7 @@ public class CarMiniGame : MonoBehaviour
 
     private void HandleProgress()
     {
-        if (Input.GetKey(KeyCode.F))
+        if (Input.GetKey(KeyCode.E))
         {
             progress += Time.deltaTime * ProgressRate;
             progressBar.value = progress;

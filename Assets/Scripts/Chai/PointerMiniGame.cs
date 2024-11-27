@@ -25,7 +25,7 @@ public class PointerMiniGame : MonoBehaviour
             MovePointer();
 
 
-            if (Input.GetKeyDown(KeyCode.F) && IsInGreenZone())
+            if (Input.GetKeyDown(KeyCode.E) && IsInGreenZone())
             {
                 Debug.Log("指针在青色区域，修理进度继续。");
                 ContinueMainGame();
