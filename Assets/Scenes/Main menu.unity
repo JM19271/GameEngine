@@ -21355,7 +21355,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Horror Game
+  m_text: Midnight Breakdown
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d2f3c717bda171947940002633c5e544, type: 2}
   m_sharedMaterial: {fileID: -9093346432656933494, guid: d2f3c717bda171947940002633c5e544, type: 2}
@@ -21382,7 +21382,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 300
+  m_fontSize: 190.1
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -37983,6 +37983,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Credit Screen
       objectReference: {fileID: 0}
+    - target: {fileID: 695159752060882639, guid: 79ff740acc1a7734392ae764d5df7059, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5907763535886937435, guid: 79ff740acc1a7734392ae764d5df7059, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -38009,11 +38013,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5907763535886937435, guid: 79ff740acc1a7734392ae764d5df7059, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1920
+      value: 1942.6
       objectReference: {fileID: 0}
     - target: {fileID: 5907763535886937435, guid: 79ff740acc1a7734392ae764d5df7059, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1080
+      value: 1092.4
       objectReference: {fileID: 0}
     - target: {fileID: 5907763535886937435, guid: 79ff740acc1a7734392ae764d5df7059, type: 3}
       propertyPath: m_LocalPosition.x
@@ -38045,11 +38049,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5907763535886937435, guid: 79ff740acc1a7734392ae764d5df7059, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -22.562744
+      value: -11.281
       objectReference: {fileID: 0}
     - target: {fileID: 5907763535886937435, guid: 79ff740acc1a7734392ae764d5df7059, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -12.390076
+      value: -6.195
       objectReference: {fileID: 0}
     - target: {fileID: 5907763535886937435, guid: 79ff740acc1a7734392ae764d5df7059, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
